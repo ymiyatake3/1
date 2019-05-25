@@ -25,6 +25,7 @@ public class Anagram {
             char[] input_ = sc.next().toCharArray();
             Arrays.sort(input_);
             String input = String.valueOf(input_);
+            input = input.toLowerCase();
 
             String cand = "_";
             int maxScore = 0;
