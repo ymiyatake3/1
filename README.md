@@ -4,4 +4,5 @@ Notice:
 - Please put 16 characters by your hand.
 - Both lower and upper characters are ok.
 - Please put "Q" instead of "Qu".
-- In the answer, "Qu" also be shown as "Q".
+(There are no words in dictionary.txt that uses 'q' without next 'u'.)
+- In the answer, "Qu" also be shown as "Q". Please take care.
