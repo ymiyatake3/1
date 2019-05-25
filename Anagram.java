@@ -20,11 +20,12 @@ public class Anagram {
         setDictionary();
 
         for (int round = 0; round < 10; round++) {
+            char[] input_;
             while (true) {
-                System.out.print(Please put characters: );
+                System.out.print("Please put characters: ");
 
                 // get input characters and sort them
-                char[] input_ = sc.next().toCharArray();
+                input_ = sc.next().toCharArray();
 
                 int l = input_.length;
                 if (l == 16) {
@@ -49,7 +50,7 @@ public class Anagram {
                 int score = 0;
                 for (int j = 0; j < input.length(); j++) {
                     if ((1 & i >> j) == 1) {
-                        char c = charArray[j];
+                        char c = input_[j];
                         key += c;
                         score += points[(int)c - (int)'a'];
                     }
