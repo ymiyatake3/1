@@ -20,10 +20,19 @@ public class Anagram {
         setDictionary();
 
         for (int round = 0; round < 10; round++) {
-            System.out.print(Please put characters: );
+            while (true) {
+                System.out.print(Please put characters: );
 
-            // get usable characters from input
-            char[] input_ = sc.next().toCharArray();
+                // get input characters and sort them
+                char[] input_ = sc.next().toCharArray();
+
+                int l = input_.length;
+                if (l == 16) {
+                    break;
+                } else {
+                    System.out.println("The number of input characters is " + l + ". Please put again.");
+                }
+            }
             Arrays.sort(input_);
             String input = String.valueOf(input_);
             input = input.toLowerCase();
