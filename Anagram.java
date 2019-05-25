@@ -20,8 +20,9 @@ public class Anagram {
         setDictionary();
 
         for (int round = 0; round < 10; round++) {
+            System.out.print(Please put characters: );
 
-            // get usable characters from standard input
+            // get usable characters from input
             char[] input_ = sc.next().toCharArray();
             Arrays.sort(input_);
             String input = String.valueOf(input_);
@@ -31,7 +32,10 @@ public class Anagram {
             int maxScore = 0;
 
             boolean found = false;
-            for (int i = 0; i < (int) Math.pow(2., input.length()); i++) {
+
+            // consider all possible combination of input characters (include duplication)
+            // using Bit-Full-Search
+            for (int i = 0; i < (int)Math.pow(2., input.length()); i++) {
                 String key = "";
                 int score = 0;
                 for (int j = 0; j < input.length(); j++) {
@@ -42,6 +46,7 @@ public class Anagram {
                     }
                 }
 
+                // search in the dictionary
                 String word;
                 if (score > maxScore && (word = dictionary.get(key)) != null) {
                     if (!found) {
