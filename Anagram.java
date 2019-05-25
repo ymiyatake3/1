@@ -25,7 +25,7 @@ public class Anagram {
                 System.out.print("Please put characters: ");
 
                 // get input characters and sort them
-                input_ = sc.next().toCharArray();
+                input_ = sc.next().toLowerCase().toCharArray();
 
                 int l = input_.length;
                 if (l == 16) {
@@ -36,7 +36,6 @@ public class Anagram {
             }
             Arrays.sort(input_);
             String input = String.valueOf(input_);
-            input = input.toLowerCase();
 
             String cand = "_";
             int maxScore = 0;
@@ -51,6 +50,7 @@ public class Anagram {
                 for (int j = 0; j < input.length(); j++) {
                     if ((1 & i >> j) == 1) {
                         char c = input_[j];
+
                         key += c;
                         score += points[(int)c - (int)'a'];
                     }
