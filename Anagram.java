@@ -101,25 +101,4 @@ public class Anagram {
             System.out.println(e);
         }
     }
-
-    /*
-    static int binarySearch(String target) {
-        int right = dictionary_sorted.size() - 1;
-        int left = 0;
-        int mid = (left + right) / 2;
-        while(right >= left) {
-            mid = (left + right) / 2;
-            String value = dictionary_sorted.get(mid);
-            int k = target.compareTo(value);
-            if (k == 0) {
-                return mid;
-            } else if (k < 0) {
-                right = mid - 1;
-            } else {
-                left = mid + 1;
-            }
-        }
-        return -1;
-    }
-    */
 }
