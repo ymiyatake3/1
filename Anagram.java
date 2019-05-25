@@ -71,7 +71,7 @@ public class Anagram {
                 System.out.println("Not found");
             } else {
                 System.out.println("Best solution is: " + cand.toUpperCase());
-                System.out.println("Score: " + Math.pow((maxScore + 1), 2));
+                System.out.println("Score: " + (int)Math.pow((maxScore + 1), 2));
             }
         }
     }
