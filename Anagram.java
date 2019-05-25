@@ -22,9 +22,9 @@ public class Anagram {
         for (int round = 0; round < 10; round++) {
 
             // get usable characters from standard input
-            char[] charArray = sc.next().toCharArray();
-            Arrays.sort(charArray);
-            String input = String.valueOf(charArray);
+            char[] input_ = sc.next().toCharArray();
+            Arrays.sort(input_);
+            String input = String.valueOf(input_);
 
             String cand = "_";
             int maxScore = 0;
