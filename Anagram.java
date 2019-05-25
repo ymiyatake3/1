@@ -55,18 +55,12 @@ public class Anagram {
             if (!found) {
                 System.out.println("Not found");
             } else {
-                System.out.println("Best solution is: " + cand);
+                System.out.println("Best solution is: " + cand.toUpperCase());
+                System.out.println("Score: " + maxScore);
             }
         }
     }
 
-    static int calcScore(String s) {
-        int score = 0;
-        for (int i = 0; i < s.length(); i++) {
-            score += points[(int)s.charAt(i) - (int)'a'];
-        }
-        return score;
-    }
 
     static void setDictionary() {
         try {
@@ -102,4 +96,15 @@ public class Anagram {
             System.out.println(e);
         }
     }
+
+    // Not used
+    /*
+    static int calcScore(String s) {
+        int score = 0;
+        for (int i = 0; i < s.length(); i++) {
+            score += points[(int)s.charAt(i) - (int)'a'];
+        }
+        return score;
+    }
+     */
 }
