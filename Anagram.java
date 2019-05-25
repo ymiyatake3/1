@@ -45,7 +45,7 @@ public class Anagram {
 
             // consider all possible combination of input characters (include duplication)
             // using Bit-Full-Search
-            for (int i = 0; i < (int)Math.pow(2., input.length()); i++) {
+            for (int i = (int)Math.pow(2., input.length()); i >= 0; i--) {
                 String key = "";
                 int score = 0;
                 for (int j = 0; j < input.length(); j++) {
