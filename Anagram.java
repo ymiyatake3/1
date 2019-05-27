@@ -1,6 +1,16 @@
-import java.util.*;
-import java.lang.*;
-import java.io.*;
+import java.util.Arrays;
+import java.util.TreeMap;
+import java.util.Scanner;
+
+import java.lang.String;
+import java.lang.System;
+import java.lang.Math;
+
+import java.io.File;
+import java.io.FileReader;
+import java.io.BufferedReader;
+import java.io.IOException;
+import java.io.FileNotFoundException;
 
 public class Anagram {
 
@@ -67,7 +77,7 @@ public class Anagram {
             }
 
             if (!found) {
-                System.out.println("Not found");
+                System.out.println("No possible word");
             } else {
                 System.out.println("Best solution is: " + cand.toUpperCase());
                 System.out.println("Score: " + (int)Math.pow((maxScore + 1), 2));
