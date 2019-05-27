@@ -16,9 +16,15 @@ import java.io.FileNotFoundException;
 
 public class AnagramImpl {
 
+    // map from original words to sorted words
     Map<String, String> dictionary = new TreeMap<>();
 
-    final Map<Character, Integer> charToPoints =  new HashMap<>();
+    // map from alphabets to points
+    final Map<Character, Integer> charToPoints = new HashMap<>();
+
+    // 4 * 4 characters shown in the game screen
+    final int displayedCharNum = 16;
+
 
 
     public void run(Scanner sc) {
@@ -34,7 +40,7 @@ public class AnagramImpl {
                 input_ = sc.next().toLowerCase().toCharArray();
 
                 int l = input_.length;
-                if (l == 16) {
+                if (l == displayedCharNum) {
                     break;
                 } else {
                     System.out.println("The number of input characters is " + l + ". Please put again.");
@@ -48,15 +54,27 @@ public class AnagramImpl {
 
             boolean found = false;
 
-            // all possible combination of input characters (include duplication)
-            for (int i = (int)Math.pow(2., input.length()); i >= 0; i--) {
+
+            // the number of all possible combinations of input characters (include duplication and void)
+            int maxIteration = (int)Math.pow(2., input.length());
+
+            // think each combination of the characters as binary expression of i
+            for (int i = 0; i < maxIteration; i++) {
                 String key = "";
                 int score = 0;
+
+                // check each bit of i's binary expression
                 for (int j = 0; j < input.length(); j++) {
+
+                    // check if j-th bit from right is high
                     if ((1 & i >> j) == 1) {
+
+                        // j-th bit's high means j-th character exists
                         char c = input_[j];
 
+                        // key contains the j-th character
                         key += c;
+
                         score += charToPoints.get(c);
                     }
                 }
@@ -72,30 +90,15 @@ public class AnagramImpl {
                 }
             }
 
+            // final cand is the best answer
+            String ans = cand;
+
             if (!found) {
                 System.out.println("No possible word");
             } else {
-                System.out.println("Best solution is: " + cand.toUpperCase());
+                System.out.println("Best solution is: " + ans.toUpperCase());
                 System.out.println("Score: " + (int)Math.pow((maxScore + 1), 2));
             }
-        }
-    }
-
-    void setPointsArray() {
-        for (int i = 0; i < 26; i++) {
-            char[] twoPoints = {'c', 'f', 'h', 'l', 'm', 'p', 'v', 'w', 'Y'};
-            char[] threePoints = {'j', 'k', 'q', 'x', 'z'};
-
-            char alphabet = (char)((int)'a' + i);
-            int point = 0;
-            if (Arrays.binarySearch(threePoints, alphabet) >= 0) {
-                point = 3;
-            } else if (Arrays.binarySearch(twoPoints, alphabet) >= 0) {
-                point = 2;
-            } else {
-                point = 1;
-            }
-            charToPoints.put(alphabet, point);
         }
     }
 
@@ -132,6 +135,25 @@ public class AnagramImpl {
             System.out.println(e);
         } catch (IOException e) {
             System.out.println(e);
+        }
+    }
+
+
+    void setPointsArray() {
+        for (int i = 0; i < 26; i++) {
+            char[] twoPoints = {'c', 'f', 'h', 'l', 'm', 'p', 'v', 'w', 'Y'};
+            char[] threePoints = {'j', 'k', 'q', 'x', 'z'};
+
+            char alphabet = (char)((int)'a' + i);
+            int point = 0;
+            if (Arrays.binarySearch(threePoints, alphabet) >= 0) {
+                point = 3;
+            } else if (Arrays.binarySearch(twoPoints, alphabet) >= 0) {
+                point = 2;
+            } else {
+                point = 1;
+            }
+            charToPoints.put(alphabet, point);
         }
     }
 }
