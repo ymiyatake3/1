@@ -1,6 +1,7 @@
 import java.util.Arrays;
 import java.util.Map;
 import java.util.TreeMap;
+import java.util.HashMap;
 import java.util.Scanner;
 
 import java.lang.String;
@@ -17,18 +18,12 @@ public class AnagramImpl {
 
     Map<String, String> dictionary = new TreeMap<>();
 
-    final int[] points = {
-            1, 1, 2, 1, 1,  // A,B,C,D,E
-            2, 1, 2, 1, 3,  // F,G,H,I,J
-            3, 2, 2, 1, 1,  // K,L,M,N,O
-            2, 3, 1, 1, 1,  // P,Q,R,S,T
-            1, 2, 2, 3, 2, 3  // U,V,W,X,Y,Z
-    };
+    final Map<Character, Integer> charToPoints =  new HashMap<>();
+
 
     public void run(Scanner sc) {
-        //sc = new Scanner(System.in);
-
         setDictionary();
+        setPointsArray();
 
         for (int round = 0; round < 10; round++) {
             char[] input_;
@@ -62,7 +57,7 @@ public class AnagramImpl {
                         char c = input_[j];
 
                         key += c;
-                        score += points[(int)c - (int)'a'];
+                        score += charToPoints.get(c);
                     }
                 }
 
@@ -83,6 +78,24 @@ public class AnagramImpl {
                 System.out.println("Best solution is: " + cand.toUpperCase());
                 System.out.println("Score: " + (int)Math.pow((maxScore + 1), 2));
             }
+        }
+    }
+
+    void setPointsArray() {
+        for (int i = 0; i < 26; i++) {
+            char[] twoPoints = {'c', 'f', 'h', 'l', 'm', 'p', 'v', 'w', 'Y'};
+            char[] threePoints = {'j', 'k', 'q', 'x', 'z'};
+
+            char alphabet = (char)((int)'a' + i);
+            int point = 0;
+            if (Arrays.binarySearch(threePoints, alphabet) >= 0) {
+                point = 3;
+            } else if (Arrays.binarySearch(twoPoints, alphabet) >= 0) {
+                point = 2;
+            } else {
+                point = 1;
+            }
+            charToPoints.put(alphabet, point);
         }
     }
 
