@@ -32,28 +32,13 @@ public class AnagramImpl {
         setPointsArray();
 
         for (int round = 0; round < 10; round++) {
-            char[] input_;
-            while (true) {
-                System.out.print("Please put characters: ");
 
-                // get input characters and sort them
-                input_ = sc.next().toLowerCase().toCharArray();
-
-                int l = input_.length;
-                if (l == displayedCharNum) {
-                    break;
-                } else {
-                    System.out.println("The number of input characters is " + l + ". Please put again.");
-                }
-            }
-            Arrays.sort(input_);
-            String input = String.valueOf(input_);
+            String input = readAndSortInput(sc);
 
             String cand = "_";
             int maxScore = 0;
 
             boolean found = false;
-
 
             // the number of all possible combinations of input characters (include duplication and void)
             int maxIteration = (int)Math.pow(2., input.length());
@@ -70,9 +55,9 @@ public class AnagramImpl {
                     if ((1 & i >> j) == 1) {
 
                         // j-th bit's high means j-th character exists
-                        char c = input_[j];
+                        char c = input.charAt(j);
 
-                        // key contains the j-th character
+                        // add the j-th character to key
                         key += c;
 
                         score += charToPoints.get(c);
@@ -156,4 +141,29 @@ public class AnagramImpl {
             charToPoints.put(alphabet, point);
         }
     }
+
+    String readAndSortInput(Scanner sc) {
+        boolean gotRightInputs = false;
+
+        char[] input = new char[16];
+        while(!gotRightInputs) {
+            System.out.print("Please put characters: ");
+
+            // get input characters and sort them
+            input = sc.next().toLowerCase().toCharArray();
+            gotRightInputs = true;
+
+            /*
+            if (input.length == 16) {
+                gotRightInputs = true;
+            } else {
+                System.out.println("Please input again");
+            }
+            */
+        }
+
+        Arrays.sort(input);
+        return String.valueOf(input);
+    }
+
 }
