@@ -16,11 +16,13 @@ import java.io.FileNotFoundException;
 
 public class AnagramImpl {
 
+    Scrap scrap = new Scrap();
+
     // map from original words to sorted words
-    Map<String, String> dictionary = new HashMap<>();
+    Map<String, String> dictionary = new TreeMap<>();
 
     // map from alphabets to points
-    private final Map<Character, Integer> charToPoints = new HashMap<>();
+    final Map<Character, Integer> charToPoints = new HashMap<>();
 
 
     public void run(Scanner sc) {
@@ -30,6 +32,10 @@ public class AnagramImpl {
         for (int round = 0; round < 10; round++) {
 
             String input = readAndSortInput(sc);
+            //String input = scrap.read();
+            input = changeQuToQ(input.toLowerCase());
+            
+            //System.out.println("input: " + input);
 
             String cand = "_";
             int maxScore = 0;
@@ -37,11 +43,11 @@ public class AnagramImpl {
             boolean found = false;
 
             // the number of all possible combinations of input characters (include duplication and void)
-            int maxIteration = (int)Math.pow(2., input.length());
+            int maxIteration = (int) Math.pow(2., input.length());
 
             // think each combination of the characters as binary expression of i
             for (int i = 0; i < maxIteration; i++) {
-                StringBuilder key = new StringBuilder();
+                String key = "";
                 int score = 0;
 
                 // check each bit of i's binary expression
@@ -54,7 +60,7 @@ public class AnagramImpl {
                         char c = input.charAt(j);
 
                         // add the j-th character to key
-                        key.append(c);
+                        key += c;
 
                         score += charToPoints.get(c);
                     }
@@ -74,13 +80,43 @@ public class AnagramImpl {
             // final cand is the best answer
             String ans = cand;
 
+            if (ans.indexOf('q') >= 0) {
+                ans = changeQToQu(ans);
+            }
+
             if (!found) {
                 System.out.println("No possible word");
             } else {
-                System.out.println("Best solution is: " + ans.toUpperCase());
+                System.out.println("Best solution is: " + ans);
                 System.out.println("Score: " + (int)Math.pow((maxScore + 1), 2));
             }
         }
+    }
+    
+    private String changeQuToQ(String s) {
+        int qindex;
+        while ((qindex = s.indexOf("qu")) >= 0) {
+            if (qindex < s.length() - 2) {
+                s = s.substring(0, qindex + 1) + s.substring(qindex + 2);
+            } else {
+                s = s.substring(0, qindex + 1);
+            }
+        }
+        return s;
+    }
+    
+    private String changeQToQu(String s) {
+        String ret = "";
+        for (int i = 0; i < s.length(); i++) {
+            char c = s.charAt(i);
+            if (c == 'q') {
+                System.out.println("Q found"); 
+                ret += "qu";
+            } else {
+                ret += c;
+            }
+        }
+        return ret;
     }
 
 
@@ -94,14 +130,7 @@ public class AnagramImpl {
                 s = s.toLowerCase();
 
                 // change "qu" to "q"
-                int qindex;
-                while ((qindex = s.indexOf("qu")) >= 0) {
-                    if (qindex < s.length() - 2) {
-                        s = s.substring(0, qindex + 1) + s.substring(qindex + 2);
-                    } else {
-                        s = s.substring(0, qindex + 1);
-                    }
-                }
+                s = changeQuToQ(s);
 
                 char[] original = s.toCharArray();
                 char[] sorted = Arrays.copyOf(original, original.length);
@@ -150,9 +179,8 @@ public class AnagramImpl {
             readAndSortInput(sc);
         }
 
-        // sort characters ex)rxpccem -> ccemprx
+        // sort characters ex: rxpccem -> ccemprx
         Arrays.sort(input);
         return String.valueOf(input);
     }
-
 }
