@@ -17,14 +17,10 @@ import java.io.FileNotFoundException;
 public class AnagramImpl {
 
     // map from original words to sorted words
-    Map<String, String> dictionary = new TreeMap<>();
+    Map<String, String> dictionary = new HashMap<>();
 
     // map from alphabets to points
-    final Map<Character, Integer> charToPoints = new HashMap<>();
-
-    // number of the 4 * 4 characters shown on the game display
-    final int correctInputNum = 16;
-
+    private final Map<Character, Integer> charToPoints = new HashMap<>();
 
 
     public void run(Scanner sc) {
@@ -45,7 +41,7 @@ public class AnagramImpl {
 
             // think each combination of the characters as binary expression of i
             for (int i = 0; i < maxIteration; i++) {
-                String key = "";
+                StringBuilder key = new StringBuilder();
                 int score = 0;
 
                 // check each bit of i's binary expression
@@ -58,7 +54,7 @@ public class AnagramImpl {
                         char c = input.charAt(j);
 
                         // add the j-th character to key
-                        key += c;
+                        key.append(c);
 
                         score += charToPoints.get(c);
                     }
@@ -66,7 +62,7 @@ public class AnagramImpl {
 
                 // search in the dictionary
                 String word;
-                if (score > maxScore && (word = dictionary.get(key)) != null) {
+                if (score > maxScore && (word = dictionary.get(key.toString())) != null) {
                     if (!found) {
                         found = true;
                     }
@@ -88,7 +84,7 @@ public class AnagramImpl {
     }
 
 
-    void setDictionary() {
+    private void setDictionary() {
         try {
             File file = new File("dictionary.txt");
             BufferedReader br = new BufferedReader(new FileReader(file));
@@ -116,15 +112,13 @@ public class AnagramImpl {
 
             br.close();
 
-        } catch (FileNotFoundException e) {
-            System.out.println(e);
         } catch (IOException e) {
             System.out.println(e);
         }
     }
 
 
-    void setPointsArray() {
+    private void setPointsArray() {
         for (int i = 0; i < 26; i++) {
             char[] twoPoints = {'c', 'f', 'h', 'l', 'm', 'p', 'v', 'w', 'Y'};
             char[] threePoints = {'j', 'k', 'q', 'x', 'z'};
@@ -142,16 +136,17 @@ public class AnagramImpl {
         }
     }
 
-    String readAndSortInput(Scanner sc) {
-
+    private String readAndSortInput(Scanner sc) {
         System.out.print("Please put characters: ");
 
         // get input characters
         char[] input = sc.next().toLowerCase().toCharArray();
 
         // if the input was wrong
+        // number of the 4 * 4 characters shown on the game display
+        int correctInputNum = 16;
         if (input.length != correctInputNum) {
-            System.out.println("You input " + input.length + " characters. Please input again.");
+            System.out.println("Your input has " + input.length + " characters. Please input again.");
             readAndSortInput(sc);
         }
 
