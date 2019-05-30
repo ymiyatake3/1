@@ -22,8 +22,8 @@ public class AnagramImpl {
     // map from alphabets to points
     final Map<Character, Integer> charToPoints = new HashMap<>();
 
-    // 4 * 4 characters shown in the game screen
-    final int displayedCharNum = 16;
+    // number of the 4 * 4 characters shown on the game display
+    final int correctInputNum = 16;
 
 
 
@@ -143,25 +143,19 @@ public class AnagramImpl {
     }
 
     String readAndSortInput(Scanner sc) {
-        boolean gotRightInputs = false;
 
-        char[] input = new char[16];
-        while(!gotRightInputs) {
-            System.out.print("Please put characters: ");
+        System.out.print("Please put characters: ");
 
-            // get input characters and sort them
-            input = sc.next().toLowerCase().toCharArray();
-            gotRightInputs = true;
+        // get input characters
+        char[] input = sc.next().toLowerCase().toCharArray();
 
-            /*
-            if (input.length == 16) {
-                gotRightInputs = true;
-            } else {
-                System.out.println("Please input again");
-            }
-            */
+        // if the input was wrong
+        if (input.length != correctInputNum) {
+            System.out.println("You input " + input.length + " characters. Please input again.");
+            readAndSortInput(sc);
         }
 
+        // sort characters ex)rxpccem -> ccemprx
         Arrays.sort(input);
         return String.valueOf(input);
     }
