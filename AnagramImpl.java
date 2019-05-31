@@ -33,9 +33,10 @@ public class AnagramImpl {
 
             String input = readAndSortInput(sc);
             //String input = scrap.read();
-            input = changeQuToQ(input.toLowerCase());
-            
-            //System.out.println("input: " + input);
+
+            // If scraping, you have to change Qu to Q
+            //input = changeQuToQ(input.toLowerCase());
+
 
             String cand = "_";
             int maxScore = 0;
@@ -79,8 +80,9 @@ public class AnagramImpl {
 
             // final cand is the best answer
             String ans = cand;
+            ans = ans.toUpperCase();
 
-            if (ans.indexOf('q') >= 0) {
+            if (ans.indexOf('Q') >= 0) {
                 ans = changeQToQu(ans);
             }
 
@@ -109,9 +111,8 @@ public class AnagramImpl {
         String ret = "";
         for (int i = 0; i < s.length(); i++) {
             char c = s.charAt(i);
-            if (c == 'q') {
-                System.out.println("Q found"); 
-                ret += "qu";
+            if (c == 'Q') {
+                ret += "Qu";
             } else {
                 ret += c;
             }
