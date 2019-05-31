@@ -32,9 +32,9 @@ public class AnagramImpl {
         for (int round = 0; round < 10; round++) {
 
             String input = readAndSortInput(sc);
-            //String input = scrap.read();
 
-            // If scraping, you have to change Qu to Q
+            // If scraping
+            //String input = scrap.read();
             //input = changeQuToQ(input.toLowerCase());
 
 
