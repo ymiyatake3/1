@@ -4,6 +4,9 @@
 - This is the setting of **IntelliJ Idea**
 - In the left bar, please select  
 `1 (Right Click) > Mark Directory as > Sources Root`
+
+<img width="1280" alt="explain1" src="https://user-images.githubusercontent.com/34668695/58686852-ed4e5400-83ba-11e9-8e0b-25276ea2776e.png">
+
 - And set the structure from  
 `File > Project Structure`
   - Set the **Project SDK** and **Project language level**
